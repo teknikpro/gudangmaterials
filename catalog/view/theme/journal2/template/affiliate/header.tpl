@@ -57,7 +57,7 @@
                 >
                   <i class="fas fa-bell fa-fw"></i>
                   <!-- Counter - Alerts -->
-                  <span class="badge badge-danger badge-counter">3+</span>
+                  <span class="badge badge-danger badge-counter"><?= $jumlah_notif; ?></span>
                 </a>
                 <!-- Dropdown - Alerts -->
                 <div
@@ -65,33 +65,27 @@
                   aria-labelledby="alertsDropdown"
                 >
                   <h6 class="dropdown-header">Notifikasi</h6>
-                  <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="mr-3">
-                      <div class="icon-circle bg-primary">
-                        <i class="fas fa-file-alt text-white"></i>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="small text-gray-500">12 November, 2024</div>
-                      <span class="font-weight-bold"
-                        >Pembayaran Komisi 70.000</span
-                      >
-                    </div>
-                  </a>
-                  <a class="dropdown-item d-flex align-items-center" href="#">
+                  <?php if($notifikasi) : ?>
+                    <?php foreach($notifikasi as $notif) : ?>
+                    <a class="dropdown-item d-flex align-items-center" href="<?= $notif['link']; ?>">
                     <div class="mr-3">
                       <div class="icon-circle bg-success">
                         <i class="fas fa-donate text-white"></i>
                       </div>
                     </div>
                     <div>
-                      <div class="small text-gray-500">10 November, 2024</div>
-                      Pembayaran Komisi 50.000
+                      <div class="small text-gray-500"><?= date('d F Y', strtotime($notif['tanggal'])); ?></div>
+                      <?= $notif['keterangan']; ?>
                     </div>
                   </a>
+                  <?php endforeach; ?>
+                  <?php else : ?>
+                    <span class="dropdown-item text-center small text-gray-500">Semua notifikasi sudah dibaca</span>
+                  <?php endif; ?>
+                  
                   <a
                     class="dropdown-item text-center small text-gray-500"
-                    href="#"
+                    href="<?= $link_notifikasi; ?>"
                     >Buka Semua Notifikasi</a
                   >
                 </div>

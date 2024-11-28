@@ -11,6 +11,14 @@
             <!-- Form Edit Informasi Pembayaran -->
             <div class="row justify-content-center">
               <div class="col-lg-8">
+                    <?php if($warning) : ?>
+                      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                      <?= $warning; ?>
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <?php endif; ?>
                 <div class="card shadow mb-4">
                   <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold color-custom">

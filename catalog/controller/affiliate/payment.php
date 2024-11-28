@@ -148,6 +148,14 @@ class ControllerAffiliatePayment extends Controller {
 			$data['bank_account_number'] = '';
 		}
 
+		if (isset($this->session->data['warning'])) {
+			$data['warning'] = $this->session->data['warning'];
+
+			unset($this->session->data['warning']);
+		} else {
+			$data['warning'] = '';
+		}
+
 		$data['back'] = $this->url->link('affiliate/pembayaran', '', 'SSL');
 
 		$data['column_left'] = $this->load->controller('common/column_left');

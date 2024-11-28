@@ -28,6 +28,14 @@ class ControllerAffiliateKonfirmTarik extends Controller {
 
         $bankinfo = $this->model_affiliate_information->getProfile();
 
+        $namabank = $bankinfo['bank_name'];
+        $namarekening = $bankinfo['bank_account_name'];
+        $nomorrekening = $bankinfo['bank_account_number'];
+        if (empty($namabank) && empty($namarekening) && empty($nomorrekening)) {
+            $this->session->data['warning'] = "Silahkan isi dulu metode pembayaran yang akan digunakan";
+            $this->response->redirect($this->url->link('affiliate/payment', '', 'SSL'));
+        }
+
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
             $errors = [];

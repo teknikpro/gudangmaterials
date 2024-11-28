@@ -331,6 +331,33 @@ class ModelAffiliateInformation extends Model {
 		return $query->row;
 	}
 
+	public function updateStatusNotifikasiUserMasuk($id_affiliate_pemasukan){
+		$this->db->query("UPDATE oc_affiliate_notifikasi_user SET status_baca='1' WHERE id_affiliate_pemasukan='$id_affiliate_pemasukan' ");
+	}
+
+	public function updateStatusNotifikasiUserKeluar($id_affiliate_pengeluaran){
+		$this->db->query("UPDATE oc_affiliate_notifikasi_user SET status_baca='1' WHERE id_affiliate_pengeluaran='$id_affiliate_pengeluaran' ");
+	}
+
+	public function getJumlahNotifikasiUser($affiliate_id){
+		$query = $this->db->query("SELECT * FROM oc_affiliate_notifikasi_user WHERE affiliate_id='$affiliate_id' AND status_baca='0'");
+		$jumlah = count($query->rows);
+	
+		return $jumlah == 0 ? '' : ($jumlah > 9 ? '9+' : $jumlah);
+	}
+	
+
+	public function getNotifikasiUser($affiliate_id){
+		$query = $this->db->query("SELECT * FROM oc_affiliate_notifikasi_user WHERE affiliate_id='$affiliate_id' AND status_baca='0' ORDER BY id_affiliate_notifikasi_user DESC LIMIT 9");
+		return $query->rows;
+	}
+
+	public function getAllNotifikasi($affiliate_id){
+		$query = $this->db->query("SELECT * FROM oc_affiliate_notifikasi_user WHERE affiliate_id='$affiliate_id' ORDER BY id_affiliate_notifikasi_user DESC");
+		return $query->rows;
+	}
+	
+
 	// dashboard
 	public function getTotalKlikByMonth($affiliate_id) {
 		$currentMonth = date('m');

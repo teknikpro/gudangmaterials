@@ -26,6 +26,7 @@ class ControllerAffiliateStatusPenarikan extends Controller {
 			
 			// Mengambil nilai dari id_status
 			if (isset($query_params['id_status'])) {
+				$this->model_affiliate_information->updateStatusNotifikasiUserKeluar($query_params['id_status']);
 				$datadetail = $this->model_affiliate_information->getDetailPenarikan($query_params['id_status']);
 
 				if($datadetail['status_penarikan'] == 2){

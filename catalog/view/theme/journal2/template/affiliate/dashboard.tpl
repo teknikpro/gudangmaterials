@@ -10,6 +10,7 @@
             </div>
 
             <!-- Content Row -->
+            <span>Data Bulan Ini</span>
             <div class="row">
               <!-- Earnings (Monthly) Card Example -->
               <div class="col-xl-3 col-md-6 mb-4">
@@ -121,7 +122,7 @@
                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
                   >
                     <h6 class="m-0 font-weight-bold color-custom">
-                      Pendapatan Tahun Ini
+                      Pendapatan 12 bulan terakhir
                     </h6>
                   </div>
                   <!-- Card Body -->

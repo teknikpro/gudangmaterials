@@ -1,0 +1,174 @@
+.color-custom {
+  color: #db0f24;
+}
+
+.button-custom {
+  background-color: #db0f24;
+  color: #fff;
+}
+
+.button-custom:hover {
+  background-color: #af0415;
+  color: #fff;
+}
+
+.background-custom {
+  background-color: #af0415;
+}
+
+.form-control:focus {
+  border-color: #db0f24;
+  box-shadow: 0 0 0 0.2rem rgba(219, 15, 36, 0.25);
+}
+
+/* riwayat penarikan */
+.riwayat-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Kartu riwayat penarikan */
+.riwayat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.riwayat-item .tanggal {
+  font-weight: bold;
+  color: #555;
+}
+
+.riwayat-item .nominal span {
+  color: #28a745;
+  font-weight: bold;
+}
+
+/* Responsif: Ukuran teks lebih kecil di layar kecil */
+@media (max-width: 768px) {
+  .riwayat-item {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .riwayat-item .tanggal,
+  .riwayat-item .nominal {
+    font-size: 1rem;
+  }
+}
+
+/* daftar transaksi */
+/* Container untuk daftar pesanan */
+.pesanan-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Kartu pesanan */
+.pesanan-item {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Header kartu pesanan */
+.pesanan-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.tanggal {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+/* Body kartu pesanan */
+.pesanan-body {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* Gambar produk */
+.produk-img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+/* Informasi produk */
+.produk-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.nama-produk {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.harga-produk,
+.tarif-komisi,
+.estimasi-komisi {
+  font-size: 0.95rem;
+  margin: 0.2rem 0;
+}
+
+/* Status Pesanan */
+.status-pesanan {
+  padding: 0.3rem 0.5rem;
+  border-radius: 3px;
+  font-weight: bold;
+  margin-top: 0.5rem;
+  text-align: center;
+  width: fit-content;
+}
+
+/* Warna status */
+.status-pesanan.berhasil {
+  color: #fff;
+  background-color: #28a745;
+}
+
+.status-pesanan.diproses {
+  color: #fff;
+  background-color: #ffc107;
+}
+
+.status-pesanan.gagal {
+  color: #fff;
+  background-color: #dc3545;
+}
+
+/* Responsif: Susun vertikal di layar kecil */
+@media (max-width: 768px) {
+  .pesanan-body {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .produk-img {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+.container-fluid {
+  min-height: 600px;
+}

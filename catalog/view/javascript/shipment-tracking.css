@@ -1,0 +1,179 @@
+/* 
+HP Order Tracking
+
+HP Web Design
+http://hpwebdesign.id
+*/
+#manifest-table {
+    border-top: 1px solid #ddd;
+}
+#manifest-table td:nth-child(1) {
+    border-right: 1px solid #ddd; width: 30%;
+}
+.manifest-border {
+    height: .3rem;
+    width: 100%;
+    background-position-x: -3rem;
+    background-size: 11.6rem .3rem;
+    background-image: -webkit-repeating-linear-gradient(45deg,#6fa6d6,#6fa6d6 33px,transparent 0,transparent 41px,#f18d9b 0,#f18d9b 74px,transparent 0,transparent 82px);
+    background-image: repeating-linear-gradient(45deg,#6fa6d6,#6fa6d6 33px,transparent 0,transparent 41px,#f18d9b 0,#f18d9b 74px,transparent 0,transparent 82px);    
+}
+
+.shipment-status{
+    padding: 10px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+.timeline {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 20px;
+}
+
+.li {
+    transition: all 200ms ease-in;
+}
+
+.timestamp {
+    margin-bottom: 20px;
+    padding: 0px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: 100;
+}
+
+.status {
+    padding: 0px 20px;
+    display: flex;
+    justify-content: center;
+    border-top: 2px solid #eee;
+    position: relative;
+    transition: all 200ms ease-in
+    text-align: center;
+}
+
+.status h4 {
+    margin: 40px 0 0 30px;
+    font-size: 12px;
+    font-weight: normal; }
+
+.status span {
+    content: "";
+    width: 25px;
+    height: 25px;
+    background-color: white;
+    border-radius: 25px;
+    border: 1px solid #eee;
+    position: absolute;
+    top: -25px;
+    left: 42%;
+    transition: all 200ms ease-in;
+}
+
+/*
+default background
+*/
+
+.li .status span {
+    background-color: #aac7e6;
+    background-repeat: no-repeat;
+    width: 50px;
+    height: 50px;
+}
+
+@media (min-device-width: 320px) and (max-device-width: 700px) {
+    .timeline {
+        list-style-type: none;
+        display: block;
+    }
+
+    .li {
+        transition: all 200ms ease-in;
+        display: flex;
+        width: inherit;
+    }
+
+    .timestamp {
+        width: 100px;
+    }
+
+    .status:before {
+        left: -8%;
+        top: 30%;
+        transition: all 200ms ease-in;
+    }
+}
+/*
+manifest
+*/
+.manifest table{
+    width: 100%;
+}
+.manifest table td{
+    padding: 0 20px 20px 20px;
+    margin-top: 0;
+}
+.item {
+    position: relative;
+    margin: 15px 15px -15px 15px;
+    border-left: 2px solid #eee;
+    padding: 0px 40px 10px 40px;
+}
+
+.item>span {
+    position: absolute;
+    /*width: 40px;
+    height: 40px;*/
+    width: 13px;
+    height: 13px;
+    font-size: 20px;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 100%;
+    /*left: -20px;*/
+    left: -8px;
+    top: 0;
+    background: #eee;
+}
+
+.item div {
+    font-size: 13px;
+}
+
+.item p {
+    margin-top: 10px;
+}
+.item .glyphicon-ok:before {
+    content: "";
+}
+.manifest-header{
+    clear: both; padding: 10px 0; font-size: 12px;
+}
+.manifest-header h3 {
+    margin-top: 0px; font-size: 14px;
+}
+.manifest-col-25{
+    width: 25%;
+}
+.manifest-col-75{
+    width: 75%;
+    text-align: right;
+}
+.manifest-col-25.a-left{
+    float: left;
+}
+.manifest-col-75.a-right{
+    float: right;
+}
+        
+.li .date {
+    font-size: 11px;
+    text-align: center;
+    margin-top: 10px; 
+    margin-left: 30px; 
+    color: #bbb;
+    }
+

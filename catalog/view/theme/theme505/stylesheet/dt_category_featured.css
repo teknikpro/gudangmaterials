@@ -1,0 +1,61 @@
+/******************************************************
+ * @package Category featured Module Opencart Theme Framework for Opencart 2.x
+ * @version 1.0
+ * @author http://dev-trust.com
+ * @copyright Copyright (C) 2015 dev-trust.com <@emai:developer.trust@gmail.com.>.All rights reserved.
+ * @license   GNU General Public License version 3
+*******************************************************/
+.dt_category_featured{
+	margin-bottom:20px;
+}
+.dt_category_featured:after{
+	content:"";
+	display:block;
+	clear:both;
+}
+.dt_category_featured .box-header{
+	background:#BBBBBB;
+	padding:5px;
+	color:#fff;    
+	border-radius: 4px;}
+.dt_category_featured .dt_category_featured_title{
+	color:#fff;
+	padding:5px;
+	margin:0;
+}
+.dt_category_featured .dt_category_featured_left,
+.dt_category_featured .dt_category_featured_right{
+	background:#fff;
+	color:#000;
+}
+.dt_category_featured .item{
+	width:100%;
+	padding:10px 10px 0px 10px;
+}
+.dt_category_featured .category-thumb{
+	margin:0;
+}
+.dt_category_featured .category-thumb .caption h4{
+	margin:0;
+	padding:10px 0;
+	text-align:center;
+}
+.dt_category_featured .category-thumb .caption .description{
+	margin:0;
+	padding:0;
+	text-align: center;
+}
+.dt_category_featured .owl-wrapper-outer {
+	border:0;
+	border-radius:0;
+	box-shadow:none;
+}
+.dt_category_featured .owl-pagination {
+	margin-bottom: 10px
+}
+.dt_category_featured .image {
+    text-align: center;
+}
+.dt_category_featured .img-responsive{
+	display: inline-block;
+}

@@ -1,0 +1,257 @@
+/*******************************************************************************************************************************/
+/* menu */
+#tm_menu {
+    position: relative;
+	z-index:45;
+	}
+#tm_menu ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+#tm_menu >ul{
+    position: relative;
+	}
+
+#tm_menu ul ul {    
+    display: none;
+    height: auto;
+	min-width: 100%;
+	top: 100%; 
+	width: 100%;
+    left:0;    
+    position: absolute;
+}
+#tm_menu ul ul ul {
+    left: 100%;
+	display: inline-block;
+    padding-top: 0;
+    top: 0;
+	padding-left:3px;
+}
+#tm_menu ul li {
+   position:relative;
+}
+#tm_menu ul ul li {
+	background:#f2f2f2;
+	border-top:1px solid #c7c8cb;
+}
+#tm_menu ul ul li:first-child {
+	border-top:none;
+}
+#tm_menu ul ul li a{
+	font-size:15px;
+	line-height:10px;
+	color:#292d30;
+	display:inline-block;
+	padding:21px 50px 20px 19px;
+	width:100%;
+}
+#tm_menu ul ul li > a:hover:after,
+#tm_menu ul ul .menu li.sfHover > a:after,
+#tm_menu ul ul .menu  li > a.active:after  {
+	color:#fff;
+	background:#333;
+	}
+#tm_menu ul ul ul li > a:hover:after,
+#tm_menu ul ul ul .menu li.sfHover > a:after,
+#tm_menu ul ul ul .menu  li > a.active:after  {
+	color:#333;
+	background:#fff;
+	}
+#tm_menu ul ul li > a:hover,
+#tm_menu ul ul .menu li.sfHover > a,
+#tm_menu ul ul .menu  li > a.active  {
+	color:#fff;
+	background:#f97001;
+	}
+#tm_menu ul ul ul li > a:hover,
+#tm_menu ul ul ul .menu li.sfHover > a,
+#tm_menu ul ul ul .menu  li > a.active  {
+	background:#333;
+	}
+#tm_menu ul ul ul ul li > a:hover,
+#tm_menu ul ul ul ul .menu li.sfHover > a,
+#tm_menu ul ul ul ul .menu  li > a.active  {
+	background:#999;
+	}
+a.button-category{
+	display:inline-block;
+	padding:8px 25px 1px 80px;
+	font-size:22px;
+	/*line-height:38px;*/
+	line-height:38px;
+	font-weight:bold;
+	text-transform:uppercase;
+	color:#fff;
+	width:100%;
+	/*background-image: url("http://localhost/image/catalog/article/pattern13b.png");*/
+	
+	background:#545448;
+}
+#tm_menu > .menu:hover .button-category i,
+#tm_menu .sfHover .button-category i {
+	color:#f97001;
+}
+a.button-category i{
+	display:inline-block;
+	float:right;	
+	font-size:22px;
+	line-height:23px;
+	height:30px;
+	vertical-align:top;
+	color:#fff;
+}
+
+/* styling for both css and generated arrows */
+.sf-arrows .sf-with-ul:after {
+	display:inline-block;
+	content:'\f101';
+	font-family: 'FontAwesome';
+	font-size:25px;
+	line-height:36px;
+	position:absolute;
+	top:12px;
+	right:10px;
+	height:36px;
+	width:36px;
+	color:#f97001;
+	text-align:center;
+	background:#fff;
+}
+#menu-gadget .menu ul ul a{
+	padding-left:60px !important;
+}
+/*****************************************************/
+#menu-icon {
+	/* background: #545448; */
+	background-image: url("http://localhost/image/catalog/article/pattern16.png");
+	color: #fff;
+	cursor: pointer;
+	display: block;
+	font-size: 20px;
+	line-height: 20px;
+	padding: 10px;
+	text-transform: uppercase;
+	position:relative;
+}
+#menu-icon:after {
+	float:right;
+	content:"\f0c9";
+	background-image: none;
+	background-position: 0 0;
+	background-repeat: repeat;
+	display: inline;
+	font-family: FontAwesome;
+	font-style: normal;
+	font-weight: normal;
+	height: auto;
+	margin-top: 0;
+	text-decoration: inherit;
+	vertical-align: baseline;
+	width: auto;
+	display: inline-block;
+	text-decoration: inherit;
+	text-align: center;
+	width: 1.25em;
+	font-size:21px;
+	line-height:30px;
+	color:#fff;
+	vertical-align:middle;
+	}
+#menu-icon.active:after,
+#menu-icon:hover:after
+ {
+	color:#f97001;
+	}
+#menu-gadget .menu {
+	display:none;
+	padding:0;
+	margin:0
+}
+#menu-gadget .menu li { 
+	position: relative;
+	list-style-type:none;
+	background-color:#323232;
+	}
+#menu-gadget .menu li a {
+	display: inline-block;
+	color: #fff;  
+	border-top:1px solid #000;
+}
+#menu-gadget .menu  li {
+	padding: 0;
+}
+#menu-gadget .menu  li > a {
+	font-size:16px;
+	padding: 10px 15px; 
+	display: block;
+}
+#menu-gadget .menu  li li  a {
+	padding: 10px 15px 10px 45px; 
+	font-size:14px;
+	display: block;
+}
+#menu-gadget .menu  li li li a {
+	padding: 10px 15px 10px 35px; 
+	display: block;
+}
+#menu-gadget .menu li a:hover,
+#menu-gadget .menu li a.active
+ { 
+	color: #f97001; 
+}
+#menu-gadget .menu li li {
+	font-size: 12px;
+}
+#menu-gadget .menu li li.last { 
+	padding-bottom: 0 !important;  
+}
+#menu-gadget .menu li i {
+	position: absolute;
+	display: block;
+	top: 2px;
+	right: 0;
+	height: 24px;
+	width: 24px;
+}
+#menu-gadget .menu  li  i {
+	top: 0;
+	font-size:21px;
+	padding:0 20px;
+	height:45px;
+	line-height:45px;
+	right:0;
+	width:68px;
+	color:#a7a7a7;
+}
+#menu-gadget .menu  li  i:hover {
+	color:#fff;
+}
+#menu-gadget .menu  li i.fa-angle-up:before {
+	content:'\f106' !important
+}
+#menu-gadget .menu li i:hover { 
+	cursor: pointer; 
+}
+#menu-gadget .menu li i.opened { 
+	background-position: center 7px; 
+}
+/** dropdown **/
+#menu-gadget .menu ul {  
+	width: auto;  
+	padding: 0px 0px;  
+	display: none;  
+}
+#menu-gadget .menu  li.active > a > span {
+	color: inherit;
+}
+#menu-gadget .menu  li.active > a,
+#menu-gadget .menu  li:hover > a {
+	color: #f97001;	
+}
+#menu-gadget .menu  li:hover > a{
+	color: #f97001;
+	background: #222; 
+}
+

@@ -274,7 +274,7 @@ class ModelAffiliateInformation extends Model {
                 "jumlah" => $item["jumlah"],
                 "keterangan" => "Pemasukan",
 				"statuscss" => "text-success",
-				"link" => "https://gudangmaterials.id/index.php?route=affiliate/dashboard&id=",
+				"link" => "https://gudangmaterials.id/index.php?route=affiliate/detailsaldomasuk&id_status=",
 				"status" => "",
 				"warnastatus" => ""
             ];
@@ -323,6 +323,11 @@ class ModelAffiliateInformation extends Model {
 
 	public function getDetailPenarikan($id_penarikan){
 		$query = $this->db->query("SELECT * FROM oc_affiliate_pengeluaran WHERE id_affiliate_pengeluaran='$id_penarikan' ");
+		return $query->row;
+	}
+
+	public function getDetailPemasukan($id_penarikan){
+		$query = $this->db->query("SELECT * FROM oc_affiliate_pemasukan WHERE id_affiliate_pemasukan='$id_penarikan' ");
 		return $query->row;
 	}
 

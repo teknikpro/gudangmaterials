@@ -673,7 +673,7 @@ class ModelCustomerpartnerOrder extends Model {
 				$queryaffiliate = $this->db->query("SELECT * FROM oc_affiliate WHERE code='$datatracking' ");
 				$dataaffiliate = $queryaffiliate->row;
 				$dataaffiliateid = $dataaffiliate['affiliate_id'];
-				$keterangan = "Komisi dari Order Id #". $order_id;
+				$keterangan = "Pembayaran Komisi Order Id #". $order_id;
 
 				$queryproduct = $this->db->query("SELECT * FROM oc_order_product WHERE order_id='$order_id' ");
 				$datakomisi = $queryproduct->rows;
@@ -695,9 +695,15 @@ class ModelCustomerpartnerOrder extends Model {
 						$totalKomisi += $komisi;
 					}
 				}
-	
+
+				$affiliate_pemasukan = $this->db->query("SELECT id_affiliate_pemasukan FROM oc_affiliate_pemasukan ORDER BY id_affiliate_pemasukan DESC LIMIT 1 ");
+				$data_affiliate_pemasukan = $affiliate_pemasukan->row;
+				$id_affiliate_pemasukan = ($data_affiliate_pemasukan['id_affiliate_pemasukan'] + 1);
+				$linkredirect = "https://gudangmaterials.id/index.php?route=affiliate/detailsaldomasuk&id_status=". $id_affiliate_pemasukan;
 	
 				$this->db->query("INSERT INTO oc_affiliate_pemasukan (order_id, affiliate_id, jumlah, keterangan, tanggal) VALUES ('$order_id', '$dataaffiliateid', '$totalKomisi', '$keterangan', NOW()) ");
+
+				$this->db->query("INSERT INTO oc_affiliate_notifikasi_user (affiliate_id, id_affiliate_pemasukan, tanggal, keterangan, link) VALUES ('$dataaffiliateid', '$id_affiliate_pemasukan', NOW(), '$keterangan', '$linkredirect' )");
 	
 			}
 

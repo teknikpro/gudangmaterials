@@ -116,6 +116,10 @@ class ControllerAdminaffiliateLogin extends Controller {
 		if ($affiliate_info && !$affiliate_info['approved']) {
 			$this->error['warning'] = $this->language->get('error_approved');
 		}
+
+		if ($affiliate_info['admin'] != 1) {
+			$this->error['warning'] = "Anda tidak berhak mengakses halaman ini";
+		}		
 		
 		if (!$this->error) {
 			if (!$this->affiliate->login($this->request->post['email'], $this->request->post['password'])) {

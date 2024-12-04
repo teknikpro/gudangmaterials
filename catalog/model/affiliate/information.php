@@ -551,6 +551,48 @@ class ModelAffiliateInformation extends Model {
 	
 		return array_reverse($komisi_dengan_bulan);
 	}
+
+	// admin
+
+	public function getAllAfiliator() {
+		$query = $this->db->query("SELECT * FROM oc_affiliate ORDER BY affiliate_id DESC");
+		$results = $query->rows;
+	
+		// Map approved values to descriptive text
+		foreach ($results as &$result) {
+			switch ($result['approved']) {
+				case "0":
+					$result['approved'] = "belum diverifikasi";
+					$result['status'] = "badge-warning";
+					break;
+				case "1":
+					$result['approved'] = "verified";
+					$result['status'] = "badge-success";
+					break;
+				case "2":
+					$result['approved'] = "ditolak";
+					$result['status'] = "badge-danger";
+					break;
+			}
+		}
+	
+		return $results;
+	}
+
+	public function getDetailAfiliator($affiliate_id) {
+
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "affiliate` WHERE affiliate_id = '" . $affiliate_id . "'");
+		return $query->row;
+	}
+
+	public function verifikasiData($affiliate_id){
+		$this->db->query("UPDATE oc_affiliate SET approved='1' WHERE affiliate_id='$affiliate_id' ");
+	}
+
+	public function tolakVerifikasi($affiliate_id, $alasan){
+		$this->db->query("UPDATE oc_affiliate SET approved='2', alasan_tolak='$alasan' WHERE affiliate_id='$affiliate_id' ");
+	}
+	
 	
 	
 	

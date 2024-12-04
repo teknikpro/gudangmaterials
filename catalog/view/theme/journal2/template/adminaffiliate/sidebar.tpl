@@ -9,14 +9,14 @@
 <!-- Divider -->
 <hr class="sidebar-divider my-0">
 
-<li class="nav-item active">
-    <a class="nav-link" href="<?php echo (isset($this->request->get['route']) && $this->request->get['route'] == 'adminaffiliate/dashboard') ? 'active' : ''; ?>">
+<li class="nav-item <?php echo (isset($this->request->get['route']) && $this->request->get['route'] == 'adminaffiliate/dashboard') ? 'active' : ''; ?>">
+    <a class="nav-link" href="<?= $dashboard; ?>">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <span>Dashboard</span></a>
 </li>
 
-<li class="nav-item">
-    <a class="nav-link" href="affiliator.html">
+<li class="nav-item <?php echo (isset($this->request->get['route']) && $this->request->get['route'] == 'adminaffiliate/afiliator') ? 'active' : ''; ?>">
+    <a class="nav-link" href="<?= $afiliator; ?>">
         <i class="fas fa-users"></i>
         <span>Affiliator</span></a>
 </li>

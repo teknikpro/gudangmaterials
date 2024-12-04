@@ -1,10 +1,10 @@
 <?php
-class ControllerAdminaffiliateLogin extends Controller {
+class ControllerAffiliateLogin extends Controller {
 	private $error = array();
 
 	public function index() {
 		if ($this->affiliate->isLogged()) {
-			$this->response->redirect($this->url->link('adminaffiliate/dashboard', '', 'SSL'));
+			$this->response->redirect($this->url->link('affiliate/dashboard', '', 'SSL'));
 		}
 
 		$this->load->language('affiliate/login');
@@ -28,9 +28,26 @@ class ControllerAdminaffiliateLogin extends Controller {
 			if (isset($this->request->post['redirect']) && (strpos($this->request->post['redirect'], $this->config->get('config_url')) !== false || strpos($this->request->post['redirect'], $this->config->get('config_ssl')) !== false)) {
 				$this->response->redirect(str_replace('&amp;', '&', $this->request->post['redirect']));
 			} else {
-				$this->response->redirect($this->url->link('adminaffiliate/dashboard', '', 'SSL'));
+				$this->response->redirect($this->url->link('affiliate/dashboard', '', 'SSL'));
 			}
 		}
+
+		$data['breadcrumbs'] = array();
+
+		$data['breadcrumbs'][] = array(
+			'text' => $this->language->get('text_home'),
+			'href' => $this->url->link('common/home')
+		);
+
+		$data['breadcrumbs'][] = array(
+			'text' => $this->language->get('text_account'),
+			'href' => $this->url->link('affiliate/account', '', 'SSL')
+		);
+
+		$data['breadcrumbs'][] = array(
+			'text' => $this->language->get('text_login'),
+			'href' => $this->url->link('affiliate/login', '', 'SSL')
+		);
 
 		$data['heading_title'] = $this->language->get('heading_title');
 
@@ -53,8 +70,9 @@ class ControllerAdminaffiliateLogin extends Controller {
 			$data['error_warning'] = '';
 		}
 
-		$data['action'] = $this->url->link('adminaffiliate/login', '', 'SSL');
-		$data['forgotten'] = $this->url->link('adminaffiliate/forgotten', '', 'SSL');
+		$data['action'] = $this->url->link('affiliate/login', '', 'SSL');
+		$data['register'] = $this->url->link('affiliate/register', '', 'SSL');
+		$data['forgotten'] = $this->url->link('affiliate/forgotten', '', 'SSL');
 
 		if (isset($this->request->post['redirect'])) {
 			$data['redirect'] = $this->request->post['redirect'];
@@ -92,12 +110,11 @@ class ControllerAdminaffiliateLogin extends Controller {
 		$data['content_bottom'] = $this->load->controller('common/content_bottom');
 		$data['footer'] = $this->load->controller('common/footer');
 		$data['header'] = $this->load->controller('common/header');
-		$data['template_assets'] = "https://gudangmaterials.id/catalog/view/theme/journal2/template/affiliate/assets/sbadmin/";
 
-		if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/adminaffiliate/login.tpl')) {
-			$this->response->setOutput($this->load->view($this->config->get('config_template') . '/template/adminaffiliate/login.tpl', $data));
+		if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/affiliate/login.tpl')) {
+			$this->response->setOutput($this->load->view($this->config->get('config_template') . '/template/affiliate/login.tpl', $data));
 		} else {
-			$this->response->setOutput($this->load->view('default/template/adminaffiliate/login.tpl', $data));
+			$this->response->setOutput($this->load->view('default/template/affiliate/login.tpl', $data));
 		}
 	}
 
@@ -113,13 +130,13 @@ class ControllerAdminaffiliateLogin extends Controller {
 		// Check if affiliate has been approved.
 		$affiliate_info = $this->model_affiliate_affiliate->getAffiliateByEmail($this->request->post['email']);
 
+		if($affiliate_info['approved'] = 2){
+			$this->error['warning'] = "Akun anda tidak disetujui untuk ikut affiliate gudangmaterials";
+		}
+
 		if ($affiliate_info && !$affiliate_info['approved']) {
 			$this->error['warning'] = $this->language->get('error_approved');
 		}
-
-		if ($affiliate_info['admin'] != 1) {
-			$this->error['warning'] = "Anda tidak berhak mengakses halaman ini";
-		}		
 		
 		if (!$this->error) {
 			if (!$this->affiliate->login($this->request->post['email'], $this->request->post['password'])) {

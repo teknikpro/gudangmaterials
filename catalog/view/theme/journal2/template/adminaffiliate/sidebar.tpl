@@ -21,14 +21,14 @@
         <span>Affiliator</span></a>
 </li>
 
-<li class="nav-item">
-    <a class="nav-link" href="tarikdana.html">
+<li class="nav-item <?php echo (isset($this->request->get['route']) && $this->request->get['route'] == 'adminaffiliate/tarikdana') ? 'active' : ''; ?>">
+    <a class="nav-link" href="<?= $tarikdana; ?>">
         <i class="fas fa-wallet"></i>
         <span>Pengajuan Tarik Dana</span></a>
 </li>
 
-<li class="nav-item">
-    <a class="nav-link" href="transaksi.html">
+<li class="nav-item <?php echo (isset($this->request->get['route']) && $this->request->get['route'] == 'adminaffiliate/transaksi') ? 'active' : ''; ?>">
+    <a class="nav-link" href="<?= $transaksi; ?>">
         <i class="fas fa-exchange-alt"></i>
         <span>Transaksi</span></a>
 </li>

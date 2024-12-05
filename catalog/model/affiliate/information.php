@@ -592,7 +592,140 @@ class ModelAffiliateInformation extends Model {
 	public function tolakVerifikasi($affiliate_id, $alasan){
 		$this->db->query("UPDATE oc_affiliate SET approved='2', alasan_tolak='$alasan' WHERE affiliate_id='$affiliate_id' ");
 	}
+
+	public function getTransaksi() {
+		$query = $this->db->query("
+			SELECT 
+				o.order_id, 
+				FORMAT(o.total, 0) AS total, -- Format total
+				os.name AS order_status, -- Ambil nama status pesanan
+				DATE_FORMAT(o.date_added, '%d %M %Y') AS date_added, -- Format tanggal
+				c.firstname, 
+				c.lastname 
+			FROM oc_order o
+			JOIN oc_customer c ON o.seller_id = c.customer_id -- Gabungkan dengan tabel customer
+			JOIN oc_order_status os ON o.order_status_id = os.order_status_id -- Gabungkan dengan tabel order status
+			WHERE o.tracking IS NOT NULL AND o.tracking != ''
+		");
 	
+		$result = [];
+		foreach ($query->rows as $row) {
+			$result[] = [
+				'order_id' => $row['order_id'],
+				'total' => $row['total'],
+				'order_status' => $row['order_status'],
+				'date_added' => $row['date_added'],
+				'seller_name' => $row['firstname'] . ' ' . $row['lastname'],
+			];
+		}
+	
+		return $result;
+	}
+
+	public function pengajuanTarikDana() {
+		$query = $this->db->query("
+			SELECT 
+				ap.id_affiliate_pengeluaran,
+				ap.affiliate_id,
+				ap.jumlah,
+				ap.keterangan,
+				ap.tanggal,
+				ap.tanggal_pencairan,
+				ap.status_penarikan,
+				a.firstname,
+				a.lastname,
+				a.email
+			FROM oc_affiliate_pengeluaran ap
+			JOIN oc_affiliate a ON ap.affiliate_id = a.affiliate_id
+			ORDER BY ap.tanggal DESC
+		");
+	
+		$result = array();
+		foreach ($query->rows as $row) {
+			$statusMapping = array(
+				'1' => array('status' => 'Transfer Sekarang', 'badge' => 'badge-warning'),
+				'2' => array('status' => 'Sudah Ditransfer', 'badge' => 'badge-success'),
+				'3' => array('status' => 'Gagal Ditransfer', 'badge' => 'badge-danger'),
+			);
+	
+			$status = isset($statusMapping[$row['status_penarikan']]) 
+				? $statusMapping[$row['status_penarikan']] 
+				: array('status' => 'Tidak Diketahui', 'badge' => 'badge-secondary');
+	
+			$result[] = array(
+				'id_affiliate_pengeluaran' => $row['id_affiliate_pengeluaran'],
+				'affiliate_id' => $row['affiliate_id'],
+				'jumlah' => $row['jumlah'],
+				'keterangan' => $row['keterangan'],
+				'tanggal' => $row['tanggal'],
+				'tanggal_pencairan' => $row['tanggal_pencairan'],
+				'status_penarikan' => $status['status'],
+				'badge_class' => $status['badge'],
+				'nama' => $row['firstname'] . ' ' . $row['lastname'],
+				'email' => $row['email'],
+			);
+		}
+	
+		return $result;
+	}
+
+	public function getDataPengeluaran($id_affiliate_pengeluaran){
+		$query = $this->db->query("SELECT * FROM oc_affiliate_pengeluaran WHERE id_affiliate_pengeluaran='$id_affiliate_pengeluaran' ");
+		return $query->row;
+	}
+
+	public function updateTransferKomsi($id_affiliate_pengeluaran, $newFileName){
+		$this->db->query("UPDATE oc_affiliate_pengeluaran SET tanggal_pencairan=NOW(), status_penarikan='2', bukti_transfer='$newFileName' WHERE id_affiliate_pengeluaran='$id_affiliate_pengeluaran' ");
+	}
+
+	public function getTotalAfiliator() {
+		$query = $this->db->query("SELECT affiliate_id FROM oc_affiliate");
+		return count($query->rows);
+	}
+
+	public function getTotalTransaksiAfiliator(){
+		$query = $this->db->query("SELECT * FROM oc_order WHERE tracking IS NOT NULL AND tracking != '' ");
+		return count($query->rows);
+	}
+
+	public function getJumlahTransaksiAfiliator() {
+		$query = $this->db->query("SELECT total FROM oc_order WHERE tracking IS NOT NULL AND tracking != ''");
+		$totalSum = 0;
+	
+		foreach ($query->rows as $row) {
+			$totalSum += (int) $row['total'];
+		}
+	
+		return $totalSum;
+	}
+
+	public function getJumlahTerjualProduk() {
+		$query = $this->db->query("SELECT order_id FROM oc_order WHERE tracking IS NOT NULL AND tracking != ''");
+	
+		// Variabel untuk menyimpan hasil produk dan jumlahnya
+		$produkJumlah = [];
+	
+		foreach ($query->rows as $row) {
+			$order_id = $row['order_id'];
+	
+			// Ambil product_id, name, dan quantity berdasarkan order_id dari tabel oc_order_product
+			$productQuery = $this->db->query("SELECT product_id, name, quantity FROM oc_order_product WHERE order_id = " . (int)$order_id);
+	
+			foreach ($productQuery->rows as $productRow) {
+				// Jika produk belum ada di array, tambahkan
+				if (!isset($produkJumlah[$productRow['product_id']])) {
+					$produkJumlah[$productRow['product_id']] = [
+						'name' => $productRow['name'], // Menyimpan nama produk
+						'quantity' => 0                // Menyimpan jumlah yang terjual
+					];
+				}
+				// Tambahkan quantity ke produk yang ada
+				$produkJumlah[$productRow['product_id']]['quantity'] += $productRow['quantity'];
+			}
+		}
+	
+		return $produkJumlah;
+	}
 	
 	
 	

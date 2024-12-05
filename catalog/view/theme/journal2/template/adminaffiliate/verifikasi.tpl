@@ -103,7 +103,7 @@
                         <input type="hidden" name="affiliate_id" value="<?= $afiliator['affiliate_id']; ?>">
                         <div class="form-group">
                             <label for="alasan">Alasan Ditolak</label>
-                            <textarea name="alasan" class="form-control" id="alasan" rows="3"></textarea>
+                            <textarea name="alasan" class="form-control" id="alasan" rows="3" required></textarea>
                         </div>
                 </div>
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: 28 Nov 2024 pada 04.57
+-- Generation Time: 05 Des 2024 pada 08.38
 -- Versi Server: 5.6.51
 -- PHP Version: 5.4.16
 
@@ -31,18 +31,18 @@ CREATE TABLE IF NOT EXISTS `oc_affiliate_pengeluaran` (
   `affiliate_id` int(11) NOT NULL,
   `jumlah` int(11) NOT NULL,
   `keterangan` text NOT NULL,
-  `tanggal` varchar(100) NOT NULL,
+  `tanggal` datetime NOT NULL,
   `tanggal_pencairan` datetime NOT NULL,
-  `status_penarikan` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+  `status_penarikan` int(11) NOT NULL,
+  `bukti_transfer` text NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `oc_affiliate_pengeluaran`
 --
 
-INSERT INTO `oc_affiliate_pengeluaran` (`id_affiliate_pengeluaran`, `affiliate_id`, `jumlah`, `keterangan`, `tanggal`, `tanggal_pencairan`, `status_penarikan`) VALUES
-(1, 1, 10000, 'Penarikan Komisi', '2024-11-25 15:36:04', '2024-11-28 09:14:00', 2),
-(3, 1, 11000, 'Penarikan Komisi', '2024-11-26 10:28:58', '0000-00-00 00:00:00', 1);
+INSERT INTO `oc_affiliate_pengeluaran` (`id_affiliate_pengeluaran`, `affiliate_id`, `jumlah`, `keterangan`, `tanggal`, `tanggal_pencairan`, `status_penarikan`, `bukti_transfer`) VALUES
+(1, 1, 20000, 'Penarikan Komisi', '2024-11-29 09:57:42', '2024-12-05 14:34:34', 2, 'transfer_6751578a190ce8.60823709.png');
 
 --
 -- Indexes for dumped tables
@@ -62,7 +62,7 @@ ALTER TABLE `oc_affiliate_pengeluaran`
 -- AUTO_INCREMENT for table `oc_affiliate_pengeluaran`
 --
 ALTER TABLE `oc_affiliate_pengeluaran`
-  MODIFY `id_affiliate_pengeluaran` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id_affiliate_pengeluaran` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -4,6 +4,12 @@ class ControllerAdminAffiliateNavbar extends Controller {
         $data['template_assets'] = "https://gudangmaterials.id/catalog/view/theme/journal2/template/affiliate/assets/sbadmin/";
         $data['logout'] = $this->url->link('adminaffiliate/logout', '', 'SSL');
 
+        $this->load->model('affiliate/information');
+        $profile = $this->model_affiliate_information->getProfile();
+        
+
+        $data['fullname'] = $profile['firstname'] . " " . $profile['lastname'];
+
         if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/adminaffiliate/navbar.tpl')) {
             return $this->load->view($this->config->get('config_template') . '/template/adminaffiliate/navbar.tpl', $data);
         } else {

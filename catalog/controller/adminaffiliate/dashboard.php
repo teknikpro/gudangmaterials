@@ -29,10 +29,12 @@ class ControllerAdminAffiliateDashboard extends Controller {
         $jumlah_transaksi = $this->model_affiliate_information->getJumlahTransaksiAfiliator();
 
         $jumlahProdukTerjual = $this->model_affiliate_information->getJumlahTerjualProduk();
+        $transaksi6bulan = $this->model_affiliate_information->getTransaksi6Month();
 
         $data['total_afiliator'] = $total_afiliator;
         $data['total_transaksi'] = $total_transaksi;
         $data['jumlah_transaksi'] = $jumlah_transaksi;
+        $data['jumlah_transaksi_6bulan'] = json_encode($transaksi6bulan);
         $data['jumlah_produk_terjual'] = json_encode($jumlahProdukTerjual);
 		$data['header'] = $this->load->controller('adminaffiliate/header', $data);
         $data['sidebar'] = $this->load->controller('adminaffiliate/sidebar', $data);

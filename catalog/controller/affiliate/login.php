@@ -130,6 +130,10 @@ class ControllerAffiliateLogin extends Controller {
 		// Check if affiliate has been approved.
 		$affiliate_info = $this->model_affiliate_affiliate->getAffiliateByEmail($this->request->post['email']);
 
+		if($affiliate_info['approved'] == "2"){
+			$this->error['warning'] = "Akun anda tidak disetujui untuk ikut affiliate gudangmaterials";
+		}
+
 		if ($affiliate_info && !$affiliate_info['approved']) {
 			$this->error['warning'] = $this->language->get('error_approved');
 		}

@@ -58,6 +58,7 @@ class ControllerAdminAffiliateTransfer extends Controller {
         
                             // Simpan informasi file ke database
                             $this->model_affiliate_information->updateTransferKomsi($id_affiliate_pengeluaran, $newFileName);
+                            $this->model_affiliate_information->addNotifikasiUserTransfer($id_affiliate_pengeluaran);
         
                             // Set pesan sukses dan redirect
                             $this->session->data['success'] = "Transfer Berhasil";
@@ -80,6 +81,11 @@ class ControllerAdminAffiliateTransfer extends Controller {
         $id_affiliate_pengeluaran = $_GET['id_affiliate_pengeluaran'];
         $data_pengeluaran = $this->model_affiliate_information->getDataPengeluaran($id_affiliate_pengeluaran);
         $affiliate_id = $data_pengeluaran['affiliate_id'];
+
+        $status_notif = isset($_GET['status_notif']) ? $_GET['status_notif'] : null;
+        if($status_notif){
+            $this->db->query("UPDATE oc_affiliate_notifikasi_admin SET status_baca='1' WHERE id_notifikasi_admin='$status_notif' ");
+        }
 
         $affiliator = $this->model_affiliate_information->getDetailAfiliator($affiliate_id);
 

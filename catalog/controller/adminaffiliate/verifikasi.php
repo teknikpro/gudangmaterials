@@ -43,6 +43,11 @@ class ControllerAdminAffiliateVerifikasi extends Controller {
         $affiliate_id = $_GET['affiliate_id'];
         $affiliator = $this->model_affiliate_information->getDetailAfiliator($affiliate_id);
 
+        $status_notif = isset($_GET['status_notif']) ? $_GET['status_notif'] : null;
+        if($status_notif){
+            $this->db->query("UPDATE oc_affiliate_notifikasi_admin SET status_baca='1' WHERE id_notifikasi_admin='$status_notif' ");
+        }
+
         $data['afiliator'] = $affiliator;
         $data['action'] = $this->url->link('adminaffiliate/verifikasi', '', 'SSL');
 		$data['header'] = $this->load->controller('adminaffiliate/header', $data);

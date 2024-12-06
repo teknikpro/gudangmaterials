@@ -63,7 +63,7 @@
                 </div>
                 <div class="card-body">
                     <div class="chart-bar">
-                        <canvas id="myBarChart"></canvas>
+                        <canvas id="myBarChart" data-chartbar='<?= $jumlah_transaksi_6bulan; ?>'></canvas>
                     </div>
                 </div>
             </div>

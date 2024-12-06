@@ -13,6 +13,20 @@ class ModelAffiliateAffiliate extends Model {
 	
 		return $affiliate_id;
 	}
+
+	public function addNotificationAdminRegister(){
+		$queryaffiliate = $this->db->query("SELECT * FROM oc_affiliate ORDER BY affiliate_id DESC LIMIT 1");
+		$dataaffiliate = $queryaffiliate->row;
+		$affiliate_id = $dataaffiliate['affiliate_id'];
+
+		$querynotif = $this->db->query("SELECT * FROM oc_affiliate_notifikasi_admin ORDER BY id_notifikasi_admin DESC LIMIT 1");
+		$datanotif = $querynotif->row; 
+		$notifikasi_id = ($datanotif['id_notifikasi_admin'] + 1);
+		$keterangan = "verifikasi afiliator";
+		$link = "https://gudangmaterials.id/index.php?route=adminaffiliate/verifikasi&affiliate_id=". $affiliate_id ."&status_notif=". $notifikasi_id ."";
+
+		$this->db->query("INSERT INTO oc_affiliate_notifikasi_admin SET id_notifikasi_admin='$notifikasi_id', tanggal=NOW(), keterangan='$keterangan', link='$link', status_baca='0'  ");
+	}
 	
 
 	// public function addAffiliate($data) {

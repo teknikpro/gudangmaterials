@@ -316,9 +316,21 @@ class ModelAffiliateInformation extends Model {
 		$this->load->model('affiliate/information');
 		$affiliate = $this->model_affiliate_information->getProfile();
 		$affiliate_id = $affiliate['affiliate_id'];
-		$keterangan = 'Penarikan Komisi';
+		$keterangan = 'Penarikan Komisi ' . $jumlah;
 
 		$this->db->query(" INSERT INTO oc_affiliate_pengeluaran(affiliate_id, jumlah, keterangan, tanggal, status_penarikan) VALUES ('$affiliate_id', '$jumlah', '$keterangan', NOW(), '1')");
+
+		$querypengeluaran = $this->db->query("SELECT * FROM oc_affiliate_pengeluaran ORDER BY id_affiliate_pengeluaran DESC LIMIT 1");
+		$datapengeluaran = $querypengeluaran->row;
+		$id_affiliate_pengeluaran = $datapengeluaran['id_affiliate_pengeluaran'];
+
+		$querynotifadmin = $this->db->query("SELECT * FROM oc_affiliate_notifikasi_admin ORDER BY 	id_notifikasi_admin DESC LIMIT 1");
+		$datanotifadmin = $querynotifadmin->row;
+		$notif_id = ($datanotifadmin['id_notifikasi_admin'] + 1);
+
+		$linkadmin = "https://gudangmaterials.id/index.php?route=adminaffiliate/transfer&id_affiliate_pengeluaran=". $id_affiliate_pengeluaran ."&status_notif=". $notif_id ."";
+
+		$this->db->query("INSERT INTO oc_affiliate_notifikasi_admin SET tanggal=NOW(), keterangan='$keterangan', link='$linkadmin', status_baca='0' ");
 	}
 
 	public function getDetailPenarikan($id_penarikan){
@@ -678,6 +690,25 @@ class ModelAffiliateInformation extends Model {
 		$this->db->query("UPDATE oc_affiliate_pengeluaran SET tanggal_pencairan=NOW(), status_penarikan='2', bukti_transfer='$newFileName' WHERE id_affiliate_pengeluaran='$id_affiliate_pengeluaran' ");
 	}
 
+	public function addNotifikasiUserTransfer($id_affiliate_pengeluaran){
+
+		$querypengeluaran = $this->db->query("SELECT * FROM oc_affiliate_pengeluaran WHERE id_affiliate_pengeluaran='$id_affiliate_pengeluaran' ");
+		$datapengeluaran = $querypengeluaran->row;
+
+		$querynotif = $this->db->query("SELECT * FROM oc_affiliate_notifikasi_user ORDER BY id_affiliate_notifikasi_user DESC LIMIT 1");
+		$datanotif = $query->row;
+
+		$id_notif_user = ($datanotif['id_affiliate_notifikasi_user'] + 1);
+		$affiliate_id = $datapengeluaran['affiliate_id'];
+		$jumlah = $datapengeluaran['jumlah'];
+		$keterangan = "Penarikan " . $jumlah . " berhasil";
+		$link = "https://gudangmaterials.id/index.php?route=affiliate/statuspenarikan&id_status=" . $id_affiliate_pengeluaran . "&status_notif=$id_notif_user";
+
+		$this->db->query("INSERT INTO oc_affiliate_notifikasi_user SET affiliate_id='$affiliate_id', id_affiliate_pengeluaran='$id_affiliate_pengeluaran', tanggal=NOW(), keterangan='$keterangan', link='$link', status_baca='0' ");
+
+		
+	}
+
 	public function getTotalAfiliator() {
 		$query = $this->db->query("SELECT affiliate_id FROM oc_affiliate");
 		return count($query->rows);
@@ -702,30 +733,78 @@ class ModelAffiliateInformation extends Model {
 	public function getJumlahTerjualProduk() {
 		$query = $this->db->query("SELECT order_id FROM oc_order WHERE tracking IS NOT NULL AND tracking != ''");
 	
-		// Variabel untuk menyimpan hasil produk dan jumlahnya
 		$produkJumlah = [];
 	
 		foreach ($query->rows as $row) {
 			$order_id = $row['order_id'];
 	
-			// Ambil product_id, name, dan quantity berdasarkan order_id dari tabel oc_order_product
 			$productQuery = $this->db->query("SELECT product_id, name, quantity FROM oc_order_product WHERE order_id = " . (int)$order_id);
 	
 			foreach ($productQuery->rows as $productRow) {
-				// Jika produk belum ada di array, tambahkan
 				if (!isset($produkJumlah[$productRow['product_id']])) {
 					$produkJumlah[$productRow['product_id']] = [
-						'name' => $productRow['name'], // Menyimpan nama produk
-						'quantity' => 0                // Menyimpan jumlah yang terjual
+						'name' => $productRow['name'],
+						'quantity' => 0         
 					];
 				}
-				// Tambahkan quantity ke produk yang ada
 				$produkJumlah[$productRow['product_id']]['quantity'] += $productRow['quantity'];
 			}
 		}
 	
 		return $produkJumlah;
 	}
+
+	public function getTransaksi6Month() {
+		$query = $this->db->query("SELECT total, date_added FROM oc_order WHERE tracking IS NOT NULL AND tracking != '' AND status_transaksi='5' ");
+		$data = $query->rows;
+	
+		$result = [];
+		$currentDate = new DateTime();
+		for ($i = 0; $i < 6; $i++) {
+			$month = $currentDate->format('Y-m');
+			$monthName = $currentDate->format('F');
+			$result[$month] = [
+				'month_name' => $monthName,
+				'total' => 0
+			];
+			$currentDate->modify('-1 month');
+		}
+	
+		foreach ($data as $row) {
+			$datetime = new DateTime($row['date_added']);
+			$monthYear = $datetime->format('Y-m');
+	
+			$total = (int)$row['total'];
+	
+			if (isset($result[$monthYear])) {
+				$result[$monthYear]['total'] += $total;
+			}
+		}
+	
+		return array_reverse($result);
+	}
+
+	// notifikasi
+
+	public function getJumlahNotifikasiAdmin(){
+		$query = $this->db->query("SELECT * FROM oc_affiliate_notifikasi_admin WHERE status_baca='0'");
+		$jumlah = count($query->rows);
+	
+		return $jumlah == 0 ? '' : ($jumlah > 9 ? '9+' : $jumlah);
+	}
+	
+
+	public function getNotifikasiAdmin(){
+		$query = $this->db->query("SELECT * FROM oc_affiliate_notifikasi_admin WHERE status_baca='0' ORDER BY id_notifikasi_admin DESC LIMIT 9");
+		return $query->rows;
+	}
+
+	public function getAllNotifikasiAdmin(){
+		$query = $this->db->query("SELECT * FROM oc_affiliate_notifikasi_admin ORDER BY id_notifikasi_admin DESC");
+		return $query->rows;
+	}
+	
+	
 	
 	
 	

@@ -2,7 +2,7 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
 <!-- Sidebar - Brand -->
-<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+<a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= $dashboard; ?>">
     <div class="sidebar-brand-text mx-3">GDM Affiliate </div>
 </a>
 
@@ -25,6 +25,12 @@
     <a class="nav-link" href="<?= $tarikdana; ?>">
         <i class="fas fa-wallet"></i>
         <span>Pengajuan Tarik Dana</span></a>
+</li>
+
+<li class="nav-item <?php echo (isset($this->request->get['route']) && $this->request->get['route'] == 'adminaffiliate/aturkomisi') ? 'active' : ''; ?>">
+    <a class="nav-link" href="<?= $aturkomisi; ?>">
+    <i class="fas fa-percentage"></i>
+        <span>Atur Komisi Member</span></a>
 </li>
 
 <li class="nav-item <?php echo (isset($this->request->get['route']) && $this->request->get['route'] == 'adminaffiliate/transaksi') ? 'active' : ''; ?>">

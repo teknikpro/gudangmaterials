@@ -7,6 +7,7 @@ class ControllerAdminAffiliateSidebar extends Controller {
         $data['afiliator'] = $this->url->link('adminaffiliate/afiliator', '', 'SSL');
         $data['transaksi'] = $this->url->link('adminaffiliate/transaksi', '', 'SSL');
         $data['tarikdana'] = $this->url->link('adminaffiliate/tarikdana', '', 'SSL');
+        $data['aturkomisi'] = $this->url->link('adminaffiliate/aturkomisi', '', 'SSL');
 
         if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/adminaffiliate/sidebar.tpl')) {
             return $this->load->view($this->config->get('config_template') . '/template/adminaffiliate/sidebar.tpl', $data);

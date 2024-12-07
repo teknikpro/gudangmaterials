@@ -8,11 +8,13 @@ class ControllerAdminAffiliateNavbar extends Controller {
         $profile = $this->model_affiliate_information->getProfile();
         $jmlnotifikasi = $this->model_affiliate_information->getJumlahNotifikasiAdmin();
         $notifikasi = $this->model_affiliate_information->getNotifikasiAdmin();
+        $pagenotifikasi = $this->url->link('adminaffiliate/notifikasi', '', 'SSL');
         
 
         $data['fullname'] = $profile['firstname'] . " " . $profile['lastname'];
         $data['jmlnotifikasi'] = $jmlnotifikasi;
         $data['notifikasi'] = $notifikasi;
+        $data['pagenotifikasi'] = $pagenotifikasi;
 
         if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/adminaffiliate/navbar.tpl')) {
             return $this->load->view($this->config->get('config_template') . '/template/adminaffiliate/navbar.tpl', $data);

@@ -30,7 +30,7 @@
         </a>
         <?php endforeach; ?>
         
-        <a class="dropdown-item text-center small text-gray-500" href="#">Buka Semua
+        <a class="dropdown-item text-center small text-gray-500" href="<?= $pagenotifikasi; ?>">Buka Semua
             Notifikasi</a>
     </div>
 </li>

@@ -803,6 +803,11 @@ class ModelAffiliateInformation extends Model {
 		$query = $this->db->query("SELECT * FROM oc_affiliate_notifikasi_admin ORDER BY id_notifikasi_admin DESC");
 		return $query->rows;
 	}
+
+	public function getKomisiMember(){
+		$query = $this->db->query("SELECT * FROM oc_affiliate_member");
+		return $query->rows;
+	}
 	
 	
 	

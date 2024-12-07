@@ -48,6 +48,8 @@ class ControllerAffiliateStatusPenarikan extends Controller {
 
 				$data['jumlah'] = $datadetail['jumlah'];
 				$data['tanggal'] = date('d F Y', strtotime($datadetail['tanggal']));
+				$data['tanggal_pencairan'] = date('d F Y', strtotime($datadetail['tanggal_pencairan']));
+				$data['bukti_transfer'] = "https://gudangmaterials.id/catalog/uploads/transfers/". $datadetail['bukti_transfer'];
 				$data['icon'] = $icon;
 				$data['keterangan'] = $keterangan;
 				$data['status'] = $status;

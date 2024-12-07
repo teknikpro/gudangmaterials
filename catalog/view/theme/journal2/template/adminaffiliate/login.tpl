@@ -11,6 +11,7 @@
 
     <title>Login Affiliate Admin</title>
 
+    <link rel="manifest" href="https://gudangmaterials.id/catalog/view/theme/journal2/template/adminaffiliate/manifest.json">
     <!-- Custom fonts for this template-->
     <link href="<?= $template_assets; ?>vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -91,6 +92,19 @@
 
     <!-- Custom scripts for all pages-->
     <script src="<?= $template_assets; ?>js/sb-admin-2.min.js"></script>
+
+    <script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("https://gudangmaterials.id/catalog/view/theme/journal2/template/adminaffiliate/service-worker.js")
+      .then(registration => {
+        console.log("Service Worker registered with scope:", registration.scope);
+      })
+      .catch(error => {
+        console.error("Service Worker registration failed:", error);
+      });
+  }
+</script>
+
 
 </body>
 

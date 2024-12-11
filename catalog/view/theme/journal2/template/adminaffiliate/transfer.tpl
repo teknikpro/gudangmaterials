@@ -37,7 +37,7 @@
                 <span class="input-group-text" id="inputGroupFileAddon01">Bukti Transfer</span>
             </div>
             <div class="custom-file">
-                <input type="file" class="custom-file-input" id="inputGroupFile01" name="transfer_image" aria-describedby="inputGroupFileAddon01" accept="image/*">
+                <input type="file" class="custom-file-input" id="inputGroupFile01" name="transfer_image" aria-describedby="inputGroupFileAddon01" accept="image/*" required>
                 <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
             </div>
         </div>

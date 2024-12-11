@@ -808,6 +808,35 @@ class ModelAffiliateInformation extends Model {
 		$query = $this->db->query("SELECT * FROM oc_affiliate_member");
 		return $query->rows;
 	}
+
+	// kirim email
+
+	function sendMail($to, $subject, $htmlMessage, $textMessage = '', $from = null, $senderName = null) {
+		// Akses ke konfigurasi OpenCart
+		$config = $this->config; 
+		
+		// Inisialisasi Mail
+		$mail = new Mail();
+		$mail->protocol = $config->get('config_mail_protocol');
+		$mail->parameter = $config->get('config_mail_parameter');
+		$mail->smtp_hostname = $config->get('config_mail_smtp_hostname');
+		$mail->smtp_username = $config->get('config_mail_smtp_username');
+		$mail->smtp_password = html_entity_decode($config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+		$mail->smtp_port = $config->get('config_mail_smtp_port');
+		$mail->smtp_timeout = $config->get('config_mail_smtp_timeout');
+	
+		// Set data email
+		$mail->setTo($to);
+		$mail->setFrom($from ?: $config->get('config_email')); // Gunakan email default jika parameter $from kosong
+		$mail->setSender(html_entity_decode($senderName ?: $config->get('config_name'), ENT_QUOTES, 'UTF-8')); // Gunakan nama default jika parameter $senderName kosong
+		$mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
+		$mail->setHtml($htmlMessage);
+		$mail->setText($textMessage);
+	
+		// Kirim email
+		$mail->send();
+	}
+	
 	
 	
 	

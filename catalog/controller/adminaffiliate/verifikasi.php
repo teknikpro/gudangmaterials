@@ -29,46 +29,44 @@ class ControllerAdminAffiliateVerifikasi extends Controller {
             if($lasan){
 
                 $this->model_affiliate_information->tolakVerifikasi($affiliate_id, $lasan);
-
-                // kirim email
-
-                $profile = $this->model_affiliate_information->getDetailAfiliator($affiliate_id);
-                $orderInfo = [
-                    'email' => $profile['email'],
-                    'store_name' => 'Gudang Material Affiliate'
-                ];
-                $fullname = $profile['firstname'] ." ". $profile['lastname'];
-
-                $subject = 'Pendaftaran Affiliate Ditolak';
-                $htmlMessage = '<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><style>body,html{margin:0;padding:0}body{font-family:Arial,sans-serif;background-color:#f7f7f7}table{border-spacing:0;width:100%}img{max-width:100%;height:auto}.email-container{max-width:600px;margin:auto;background-color:#ffffff;border-radius:8px;overflow:hidden;box-shadow:0 2px 5px rgba(0,0,0,0.1)}.header{background-color:#851c1c;padding:20px;text-align:center;color:#ffffff}.header h1{margin:0;font-size:24px}.content{padding:20px}.content h2{color:#333333}.content p{color:#555555;line-height:1.6}.content a{color:#851c1c;text-decoration:none;font-weight:bold}.content .button{display:inline-block;margin-top:20px;padding:10px 20px;background-color:#851c1c;color:#ffffff;text-decoration:none;border-radius:5px;font-weight:bold}.footer{background-color:#f1f1f1;padding:10px;text-align:center;font-size:12px;color:#888888}.footer a{color:#4CAF50;text-decoration:none}@media (max-width:600px){.content{padding:15px}.header h1{font-size:20px}}</style></head><body><table class="email-container"><tr><td class="header"><h1>Registrasi Affiliate Gudangmaterials</h1></td></tr><tr><td class="content"><h2>Halo '. $fullname .'!</h2><p>Mohon maaf untuk pendaftaran anda di gudangmaterials affiliate belum disetujui karena '. $lasan .'</p><p>Terimakasih sudah mendaftar di gudangmaterials affiliate</p></td></tr><tr><td class="footer"><p>&copy; 2024 gudangmaterials.id. All rights reserved.</p></td></tr></table></body></html>';
-                $textMessage = 'Registrasi Berhasil.';
+                $subjectemail = "Pendaftaran Affiliate Ditolak";
+                $textMessageEmail = "Registrasi Ditolak";
+                $isipesan = "Mohon maaf untuk pendaftaran anda di gudangmaterials affiliate belum disetujui karena " . $lasan;
+                $ucapan = '<p>Terimakasih sudah mendaftar di gudangmaterials affiliate</p>';
+                $linkaksi = '';
 
             }else {
 
                 $this->model_affiliate_information->verifikasiData($affiliate_id);
+                $subjectemail = "Pendaftaran Affiliate Berhasil";
+                $textMessageEmail = "Registrasi Berhasil";
+                $isipesan = "Selamat pendaftaran anda di gudangmaterials affiliate telah berhasil, silahkan login menggunakan akun yang sudah didaftarkan sebelumnya!";
+                $ucapan = '';
+                $linkaksi = '<a href="https://gudangmaterials.id/index.php?route=affiliate/login" class="button">Login Sekarang</a>';
 
-                // kirim email
-
-                $profile = $this->model_affiliate_information->getDetailAfiliator($affiliate_id);
-                $orderInfo = [
-                    'email' => $profile['email'],
-                    'store_name' => 'Gudang Material Affiliate'
-                ];
-                $fullname = $profile['firstname'] ." ". $profile['lastname'];
-
-                $subject = 'Pendaftaran Affiliate Berhasil';
-                $htmlMessage = '<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><style>body,html{margin:0;padding:0}body{font-family:Arial,sans-serif;background-color:#f7f7f7}table{border-spacing:0;width:100%}img{max-width:100%;height:auto}.email-container{max-width:600px;margin:auto;background-color:#ffffff;border-radius:8px;overflow:hidden;box-shadow:0 2px 5px rgba(0,0,0,0.1)}.header{background-color:#851c1c;padding:20px;text-align:center;color:#ffffff}.header h1{margin:0;font-size:24px}.content{padding:20px}.content h2{color:#333333}.content p{color:#555555;line-height:1.6}.content a{color:#851c1c;text-decoration:none;font-weight:bold}.content .button{display:inline-block;margin-top:20px;padding:10px 20px;background-color:#851c1c;color:#ffffff;text-decoration:none;border-radius:5px;font-weight:bold}.footer{background-color:#f1f1f1;padding:10px;text-align:center;font-size:12px;color:#888888}.footer a{color:#4CAF50;text-decoration:none}@media (max-width:600px){.content{padding:15px}.header h1{font-size:20px}}</style></head><body><table class="email-container"><tr><td class="header"><h1>Registrasi Affiliate Gudangmaterials</h1></td></tr><tr><td class="content"><h2>Halo '. $fullname .'!</h2><p>Selamat pendaftaran anda di gudangmaterials affiliate telah berhasil, silahkan login menggunakan akun yang sudah didaftarkan sebelumnya!</p><a href="https://gudangmaterials.id/index.php?route=affiliate/login" class="button">Login Sekarang</a></td></tr><tr><td class="footer"><p>&copy; 2024 gudangmaterials.id. All rights reserved.</p></td></tr></table></body></html>';
-                $textMessage = 'Registrasi Berhasil.';
-
-                $this->model_affiliate_information->sendMail(
-                    $orderInfo['email'],
-                    $subject,
-                    $htmlMessage,
-                    $textMessage,
-                    null,
-                    $orderInfo['store_name']
-                );
             }
+
+            // kirim email
+
+            $profile = $this->model_affiliate_information->getDetailAfiliator($affiliate_id);
+            $orderInfo = [
+                'email' => $profile['email'],
+                'store_name' => 'Gudang Material Affiliate'
+            ];
+            $fullname = $profile['firstname'] ." ". $profile['lastname'];
+
+            $subject = $subjectemail;
+            $htmlMessage = '<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><style>body,html{margin:0;padding:0}body{font-family:Arial,sans-serif;background-color:#f7f7f7}table{border-spacing:0;width:100%}img{max-width:100%;height:auto}.email-container{max-width:600px;margin:auto;background-color:#ffffff;border-radius:8px;overflow:hidden;box-shadow:0 2px 5px rgba(0,0,0,0.1)}.header{background-color:#851c1c;padding:20px;text-align:center;color:#ffffff}.header h1{margin:0;font-size:24px}.content{padding:20px}.content h2{color:#333333}.content p{color:#555555;line-height:1.6}.content a{color:#851c1c;text-decoration:none;font-weight:bold}.content .button{display:inline-block;margin-top:20px;padding:10px 20px;background-color:#851c1c;color:#ffffff;text-decoration:none;border-radius:5px;font-weight:bold}.footer{background-color:#f1f1f1;padding:10px;text-align:center;font-size:12px;color:#888888}.footer a{color:#4CAF50;text-decoration:none}@media (max-width:600px){.content{padding:15px}.header h1{font-size:20px}}</style></head><body><table class="email-container"><tr><td class="header"><h1>Registrasi Affiliate Gudangmaterials</h1></td></tr><tr><td class="content"><h2>Halo '. $fullname .'!</h2><p>'. $isipesan .'</p>'. $ucapan .'' . $linkaksi .'</td></tr><tr><td class="footer"><p>&copy; 2024 gudangmaterials.id. All rights reserved.</p></td></tr></table></body></html>';
+            $textMessage = $textMessageEmail;
+
+            $this->model_affiliate_information->sendMail(
+                $orderInfo['email'],
+                $subject,
+                $htmlMessage,
+                $textMessage,
+                null,
+                $orderInfo['store_name']
+            );
 
             $this->session->data['success'] = "Data berhasil diubah";
             $this->response->redirect($this->url->link('adminaffiliate/afiliator', '', 'SSL'));

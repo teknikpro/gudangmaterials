@@ -1,328 +1,317 @@
-<?php echo $header; ?>
-<div class="container">
-  <ul class="breadcrumb">
-    <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-    <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
-    <?php } ?>
-  </ul>
-  <?php if ($error_warning) { ?>
-  <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> <?php echo $error_warning; ?></div>
-  <?php } ?>
-  <div class="row"><?php echo $column_left; ?>
-    <?php if ($column_left && $column_right) { ?>
-    <?php $class = 'col-sm-6'; ?>
-    <?php } elseif ($column_left || $column_right) { ?>
-    <?php $class = 'col-sm-9'; ?>
-    <?php } else { ?>
-    <?php $class = 'col-sm-12'; ?>
-    <?php } ?>
-    <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
-      <h1><?php echo $heading_title; ?></h1>
-      <p><?php echo $text_account_already; ?></p>
-      <p><?php echo $text_signup; ?></p>
-      <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" class="form-horizontal">
-        <fieldset>
-          <legend><?php echo $text_your_details; ?></legend>
-          <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-firstname"><?php echo $entry_firstname; ?></label>
-            <div class="col-sm-10">
-              <input type="text" name="firstname" value="<?php echo $firstname; ?>" placeholder="<?php echo $entry_firstname; ?>" id="input-firstname" class="form-control" />
-              <?php if ($error_firstname) { ?>
-              <div class="text-danger"><?php echo $error_firstname; ?></div>
-              <?php } ?>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gudang Material Affilate | Registrasi</title>
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* Ubah warna border dan fokus input */
+
+      body {
+      font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    }
+
+      .form-control:focus {
+        border-color: #db0f24;
+        box-shadow: 0 0 0 0.2rem rgba(219, 15, 36, 0.25);
+      }
+      /* Ubah warna tombol */
+      .btn-custom {
+        background-color: #db0f24;
+        border-color: #db0f24;
+      }
+      .btn-custom:hover {
+        background-color: #a50b1b;
+        border-color: #a50b1b;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container my-5">
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+          <h2 class="text-center mb-4">Form Registrasi</h2>
+
+          <?php if ($error_warning) { ?>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <?php echo $error_warning; ?>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-          </div>
-          <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-lastname"><?php echo $entry_lastname; ?></label>
-            <div class="col-sm-10">
-              <input type="text" name="lastname" value="<?php echo $lastname; ?>" placeholder="<?php echo $entry_lastname; ?>" id="input-lastname" class="form-control" />
-              <?php if ($error_lastname) { ?>
-              <div class="text-danger"><?php echo $error_lastname; ?></div>
-              <?php } ?>
+          <?php } ?>
+
+          <form  id="registrationForm"  action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" class="needs-validation" >
+            <!-- Informasi Pribadi -->
+            <h4>Informasi Pribadi</h4>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="firstName" class="form-label">Nama Depan</label>
+                <input
+                  type="text"
+                  name="firstname"
+                  value="<?php echo $firstname; ?>"
+                  class="form-control"
+                  id="firstName"
+                  required
+                />
+                <?php if ($error_firstname) { ?>
+                <div class="text-danger"><?php echo $error_firstname; ?></div>
+                <?php } ?>
+              </div>
+              <div class="col-md-6">
+                <label for="lastName" class="form-label">Nama Belakang</label>
+                <input
+                  type="text"
+                  name="lastname"
+                  value="<?php echo $lastname; ?>"
+                  class="form-control"
+                  id="lastName"
+                  required
+                />
+                <?php if ($error_lastname) { ?>
+                <div class="text-danger"><?php echo $error_lastname; ?></div>
+                <?php } ?>
+              </div>
             </div>
-          </div>
-          <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-email"><?php echo $entry_email; ?></label>
-            <div class="col-sm-10">
-              <input type="text" name="email" value="<?php echo $email; ?>" placeholder="<?php echo $entry_email; ?>" id="input-email" class="form-control" />
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" name="email" value="<?php echo $email; ?>" class="form-control" id="email" required />
               <?php if ($error_email) { ?>
               <div class="text-danger"><?php echo $error_email; ?></div>
               <?php } ?>
             </div>
-          </div>
-          <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-telephone"><?php echo $entry_telephone; ?></label>
-            <div class="col-sm-10">
-              <input type="text" name="telephone" value="<?php echo $telephone; ?>" placeholder="<?php echo $entry_telephone; ?>" id="input-telephone" class="form-control" />
+            <div class="mb-3">
+              <label for="phone" class="form-label">Telepon</label>
+              <input type="tel" name="telephone" value="<?php echo $telephone; ?>" class="form-control" id="phone" required />
               <?php if ($error_telephone) { ?>
               <div class="text-danger"><?php echo $error_telephone; ?></div>
               <?php } ?>
             </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-fax"><?php echo $entry_fax; ?></label>
-            <div class="col-sm-10">
-              <input type="text" name="fax" value="<?php echo $fax; ?>" placeholder="<?php echo $entry_fax; ?>" id="input-fax" class="form-control" />
-            </div>
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend><?php echo $text_your_address; ?></legend>
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-company"><?php echo $entry_company; ?></label>
-            <div class="col-sm-10">
-              <input type="text" name="company" value="<?php echo $company; ?>" placeholder="<?php echo $entry_company; ?>" id="input-company" class="form-control" />
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-website"><?php echo $entry_website; ?></label>
-            <div class="col-sm-10">
-              <input type="text" name="website" value="<?php echo $website; ?>" placeholder="<?php echo $entry_website; ?>" id="input-website" class="form-control" />
-            </div>
-          </div>
-          <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-address-1"><?php echo $entry_address_1; ?></label>
-            <div class="col-sm-10">
-              <input type="text" name="address_1" value="<?php echo $address_1; ?>" placeholder="<?php echo $entry_address_1; ?>" id="input-address-1" class="form-control" />
+            <input type="hidden" name="fax" value="" >
+            <input type="hidden" name="company" value="" >
+            <input type="hidden" name="website" value="" >
+            <div class="mb-3">
+              <label for="address" class="form-label">Alamat</label>
+              <textarea
+                class="form-control"
+                name="address_1"
+                id="address"
+                rows="3"
+                required
+              ><?php echo $address_1; ?></textarea>
               <?php if ($error_address_1) { ?>
               <div class="text-danger"><?php echo $error_address_1; ?></div>
               <?php } ?>
             </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-address-2"><?php echo $entry_address_2; ?></label>
-            <div class="col-sm-10">
-              <input type="text" name="address_2" value="<?php echo $address_2; ?>" placeholder="<?php echo $entry_address_2; ?>" id="input-address-2" class="form-control" />
-            </div>
-          </div>
-          <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-city"><?php echo $entry_city; ?></label>
-            <div class="col-sm-10">
-              <input type="text" name="city" value="<?php echo $city; ?>" placeholder="<?php echo $entry_city; ?>" id="input-city" class="form-control" />
-              <?php if ($error_city) { ?>
-              <div class="text-danger"><?php echo $error_city; ?></div>
-              <?php } ?>
-            </div>
-          </div>
-          <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-postcode"><?php echo $entry_postcode; ?></label>
-            <div class="col-sm-10">
-              <input type="text" name="postcode" value="<?php echo $postcode; ?>" placeholder="<?php echo $entry_postcode; ?>" id="input-postcode" class="form-control" />
-              <?php if ($error_postcode) { ?>
-              <div class="text-danger"><?php echo $error_postcode; ?></div>
-              <?php } ?>
-            </div>
-          </div>
-          <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-country"><?php echo $entry_country; ?></label>
-            <div class="col-sm-10">
-              <select name="country_id" id="input-country" class="form-control">
-                <option value="false"><?php echo $text_select; ?></option>
-                <?php foreach ($countries as $country) { ?>
-                <?php if ($country['country_id'] == $country_id) { ?>
-                <option value="<?php echo $country['country_id']; ?>" selected="selected"><?php echo $country['name']; ?></option>
-                <?php } else { ?>
-                <option value="<?php echo $country['country_id']; ?>"><?php echo $country['name']; ?></option>
+            <input type="hidden" name="address_2" value="" >
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="province" class="form-label">Provinsi</label>
+                <input
+                  type="text"
+                  name="provinsi"
+                  value="<?php echo $provinsi; ?>"
+                  class="form-control"
+                  id="province"
+                  required
+                />
+                <?php if ($error_provinsi) { ?>
+                <div class="text-danger"><?php echo $error_provinsi; ?></div>
                 <?php } ?>
+              </div>
+              <div class="col-md-6">
+                <label for="city" class="form-label">Kabupaten/Kota</label>
+                <input type="text" name="city" value="<?php echo $city; ?>" class="form-control" id="city" required />
+                <?php if ($error_city) { ?>
+                <div class="text-danger"><?php echo $error_city; ?></div>
                 <?php } ?>
-              </select>
-              <?php if ($error_country) { ?>
-              <div class="text-danger"><?php echo $error_country; ?></div>
-              <?php } ?>
-            </div>
-          </div>
-          <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-zone"><?php echo $entry_zone; ?></label>
-            <div class="col-sm-10">
-              <select name="zone_id" id="input-zone" class="form-control">
-              </select>
-              <?php if ($error_zone) { ?>
-              <div class="text-danger"><?php echo $error_zone; ?></div>
-              <?php } ?>
-            </div>
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend><?php echo $text_payment; ?></legend>
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-tax"><?php echo $entry_tax; ?></label>
-            <div class="col-sm-10">
-              <input type="text" name="tax" value="<?php echo $tax; ?>" placeholder="<?php echo $entry_tax; ?>" id="input-tax" class="form-control" />
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label"><?php echo $entry_payment; ?></label>
-            <div class="col-sm-10">
-              <div class="radio">
-                <label>
-                  <?php if ($payment == 'cheque') { ?>
-                  <input type="radio" name="payment" value="cheque" checked="checked" />
-                  <?php } else { ?>
-                  <input type="radio" name="payment" value="cheque" />
-                  <?php } ?>
-                  <?php echo $text_cheque; ?></label>
-              </div>
-              <div class="radio">
-                <label>
-                  <?php if ($payment == 'paypal') { ?>
-                  <input type="radio" name="payment" value="paypal" checked="checked" />
-                  <?php } else { ?>
-                  <input type="radio" name="payment" value="paypal" />
-                  <?php } ?>
-                  <?php echo $text_paypal; ?></label>
-              </div>
-              <div class="radio">
-                <label>
-                  <?php if ($payment == 'bank') { ?>
-                  <input type="radio" name="payment" value="bank" checked="checked" />
-                  <?php } else { ?>
-                  <input type="radio" name="payment" value="bank" />
-                  <?php } ?>
-                  <?php echo $text_bank; ?></label>
               </div>
             </div>
-          </div>
-          <div class="form-group payment" id="payment-cheque">
-            <label class="col-sm-2 control-label" for="input-cheque"><?php echo $entry_cheque; ?></label>
-            <div class="col-sm-10">
-              <input type="text" name="cheque" value="<?php echo $cheque; ?>" placeholder="<?php echo $entry_cheque; ?>" id="input-cheque" class="form-control" />
-            </div>
-          </div>
-          <div class="form-group payment" id="payment-paypal">
-            <label class="col-sm-2 control-label" for="input-paypal"><?php echo $entry_paypal; ?></label>
-            <div class="col-sm-10">
-              <input type="text" name="paypal" value="<?php echo $paypal; ?>" placeholder="<?php echo $entry_paypal; ?>" id="input-paypal" class="form-control" />
-            </div>
-          </div>
-          <div class="payment" id="payment-bank">
-            <div class="form-group">
-              <label class="col-sm-2 control-label" for="input-bank-name"><?php echo $entry_bank_name; ?></label>
-              <div class="col-sm-10">
-                <input type="text" name="bank_name" value="<?php echo $bank_name; ?>" placeholder="<?php echo $entry_bank_name; ?>" id="input-bank-name" class="form-control" />
+            <input type="hidden" name="postcode" value="" >
+            <input type="hidden" name="country_id" value="100" >
+            <input type="hidden" name="zone_id" value="1515" >
+            <input type="hidden" name="tax" value="" >
+            <input type="hidden" name="payment" value="bank" >
+
+            <!-- Informasi Pembayaran (collapse) -->
+            <span>Klik untuk mengisi</span>
+            <h4>
+              <a
+                class="text-decoration-none"
+                data-bs-toggle="collapse"
+                href="#paymentInfo"
+                role="button"
+                aria-expanded="false"
+                aria-controls="paymentInfo"
+              >
+                Informasi Pembayaran (Opsional)
+              </a>
+            </h4>
+            <div class="collapse" id="paymentInfo">
+            <input type="hidden" name="cheque" value="" >
+            <input type="hidden" name="paypal" value="" >
+              <div class="mb-3">
+                <label for="bankName" class="form-label">Nama Bank</label>
+                <input type="text" name="bank_name" value="<?php echo $bank_name; ?>" class="form-control" id="bankName" />
+              </div>
+              <div class="mb-3">
+                <label for="branch" class="form-label">Kantor Cabang</label>
+                <input type="text" name="bank_branch_number" value="<?php echo $bank_branch_number; ?>"  class="form-control" id="branch" />
+              </div>
+              <input type="hidden" name="bank_swift_code" value="" >
+              <div class="mb-3">
+                <label for="accountName" class="form-label"
+                  >Nama Rekening</label
+                >
+                <input type="text" name="bank_account_name" value="<?php echo $bank_account_name; ?>" class="form-control" id="accountName" />
+              </div>
+              <div class="mb-3">
+                <label for="accountNumber" class="form-label"
+                  >Nomor Rekening</label
+                >
+                <input type="text" name="bank_account_number" value="<?php echo $bank_account_number; ?>" class="form-control" id="accountNumber" />
               </div>
             </div>
-            <div class="form-group">
-              <label class="col-sm-2 control-label" for="input-bank-branch-number"><?php echo $entry_bank_branch_number; ?></label>
-              <div class="col-sm-10">
-                <input type="text" name="bank_branch_number" value="<?php echo $bank_branch_number; ?>" placeholder="<?php echo $entry_bank_branch_number; ?>" id="input-bank-branch-number" class="form-control" />
-              </div>
+
+            <!-- Kata Sandi -->
+            <h4>Kata Sandi</h4>
+            <label for="password" class="form-label">Password</label>
+            <div class="mb-3 input-group">
+              <input
+                type="password"
+                name="password"
+                value="<?php echo $password; ?>"
+                class="form-control"
+                id="password"
+                required
+              />
+              <span
+                class="input-group-text"
+                id="showPassword"
+                onclick="togglePassword()"
+              >
+                <i class="bi bi-eye"></i>
+              </span>
             </div>
-            <div class="form-group">
-              <label class="col-sm-2 control-label" for="input-bank-swift-code"><?php echo $entry_bank_swift_code; ?></label>
-              <div class="col-sm-10">
-                <input type="text" name="bank_swift_code" value="<?php echo $bank_swift_code; ?>" placeholder="<?php echo $entry_bank_swift_code; ?>" id="input-bank-swift-code" class="form-control" />
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="col-sm-2 control-label" for="input-bank-account-name"><?php echo $entry_bank_account_name; ?></label>
-              <div class="col-sm-10">
-                <input type="text" name="bank_account_name" value="<?php echo $bank_account_name; ?>" placeholder="<?php echo $entry_bank_account_name; ?>" id="input-bank-account-name" class="form-control" />
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="col-sm-2 control-label" for="input-bank-account-number"><?php echo $entry_bank_account_number; ?></label>
-              <div class="col-sm-10">
-                <input type="text" name="bank_account_number" value="<?php echo $bank_account_number; ?>" placeholder="<?php echo $entry_bank_account_number; ?>" id="input-bank-account-number" class="form-control" />
-              </div>
-            </div>
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend><?php echo $text_your_password; ?></legend>
-          <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-password"><?php echo $entry_password; ?></label>
-            <div class="col-sm-10">
-              <input type="password" name="password" value="<?php echo $password; ?>" placeholder="<?php echo $entry_password; ?>" id="input-password" class="form-control" />
               <?php if ($error_password) { ?>
               <div class="text-danger"><?php echo $error_password; ?></div>
               <?php } ?>
+              <label for="confirmPassword" class="form-label"
+                >Konfirmasi Password</label
+              >
+            <div class="mb-3 input-group">
+              <input
+                type="password"
+                name="confirm"
+                value="<?php echo $confirm; ?>"
+                class="form-control"
+                id="confirmPassword"
+                required
+              />
+              <span
+                class="input-group-text"
+                id="showConfirmPassword"
+                onclick="toggleConfirmPassword()"
+              >
+                <i class="bi bi-eye"></i>
+              </span>
             </div>
-          </div>
-          <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-confirm"><?php echo $entry_confirm; ?></label>
-            <div class="col-sm-10">
-              <input type="password" name="confirm" value="<?php echo $confirm; ?>" placeholder="<?php echo $entry_confirm; ?>" id="input-confirm" class="form-control" />
-              <?php if ($error_confirm) { ?>
+            <?php if ($error_confirm) { ?>
               <div class="text-danger"><?php echo $error_confirm; ?></div>
-              <?php } ?>
-            </div>
-          </div>
-        </fieldset>
-        <?php echo $captcha; ?>
-        <?php if ($text_agree) { ?>
-        <div class="buttons clearfix">
-          <div class="pull-right"><?php echo $text_agree; ?>
-            <?php if ($agree) { ?>
-            <input type="checkbox" name="agree" value="1" checked="checked" />
-            <?php } else { ?>
-            <input type="checkbox" name="agree" value="1" />
             <?php } ?>
-            &nbsp;
-            <input type="submit" value="<?php echo $button_continue; ?>" class="btn btn-primary" />
-          </div>
+
+            <!-- Checkbox Syarat dan Ketentuan -->
+            <div class="mb-3 form-check">
+              <?php if ($agree) { ?>
+              <input type="checkbox" name="agree" value="1" class="form-check-input" id="terms" checked="checked" required />
+              <?php } else { ?>
+                <input type="checkbox" name="agree" value="1" class="form-check-input" id="terms" required />
+              <?php } ?>
+              <label class="form-check-label" for="terms">
+                Saya telah membaca dan setuju dengan
+                <a href="/syarat-ketentuan" target="_blank"
+                  >syarat dan ketentuan</a
+                >
+              </label>
+            </div>
+
+            <!-- Tombol Submit -->
+            
+
+            <div class="d-grid">
+              <button id="submitButton" type="submit" class="btn btn-custom btn-danger text-white">
+                <span id="buttonText">Daftar</span>
+                <span id="buttonSpinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+              </button>
+          </form>
+
+          <!-- Link Login -->
+          <p class="text-center mt-3">
+            Sudah memiliki akun?
+            <a href="https://gudangmaterials.id/index.php?route=affiliate/login">Login melalui tautan berikut</a>.
+          </p>
         </div>
-        <?php } else { ?>
-        <div class="buttons clearfix">
-          <div class="pull-right">
-            <input type="submit" value="<?php echo $button_continue; ?>" class="btn btn-primary" />
-          </div>
-        </div>
-        <?php } ?>
-      </form>
-      <?php echo $content_bottom; ?></div>
-    <?php echo $column_right; ?></div>
-</div>
-<script type="text/javascript"><!--
-$('select[name=\'country_id\']').on('change', function() {
-	$.ajax({
-		url: 'index.php?route=affiliate/register/country&country_id=' + this.value,
-		dataType: 'json',
-		beforeSend: function() {
-			$('select[name=\'country_id\']').after(' <i class="fa fa-circle-o-notch fa-spin"></i>');
-		},
-		complete: function() {
-			$('.fa-spin').remove();
-		},
-		success: function(json) {
-			if (json['postcode_required'] == '1') {
-				$('input[name=\'postcode\']').parent().parent().addClass('required');
-			} else {
-				$('input[name=\'postcode\']').parent().parent().removeClass('required');
-			}
+      </div>
+    </div>
 
-			html = '<option value=""><?php echo $text_select; ?></option>';
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
 
-			if (json['zone'] && json['zone'] != '') {
-				for (i = 0; i < json['zone'].length; i++) {
-					html += '<option value="' + json['zone'][i]['zone_id'] + '"';
+    <script>
+      // Fungsi untuk toggle visibility password
+      function togglePassword() {
+        var passwordField = document.getElementById("password");
+        var icon = document.getElementById("showPassword").querySelector("i");
+        if (passwordField.type === "password") {
+          passwordField.type = "text";
+          icon.classList.remove("bi-eye");
+          icon.classList.add("bi-eye-slash");
+        } else {
+          passwordField.type = "password";
+          icon.classList.remove("bi-eye-slash");
+          icon.classList.add("bi-eye");
+        }
+      }
 
-					if (json['zone'][i]['zone_id'] == '<?php echo $zone_id; ?>') {
-						html += ' selected="selected"';
-					}
+      // Fungsi untuk toggle visibility konfirmasi password
+      function toggleConfirmPassword() {
+        var confirmPasswordField = document.getElementById("confirmPassword");
+        var icon = document
+          .getElementById("showConfirmPassword")
+          .querySelector("i");
+        if (confirmPasswordField.type === "password") {
+          confirmPasswordField.type = "text";
+          icon.classList.remove("bi-eye");
+          icon.classList.add("bi-eye-slash");
+        } else {
+          confirmPasswordField.type = "password";
+          icon.classList.remove("bi-eye-slash");
+          icon.classList.add("bi-eye");
+        }
+      }
 
-					html += '>' + json['zone'][i]['name'] + '</option>';
-				}
-			} else {
-				html += '<option value="0" selected="selected"><?php echo $text_none; ?></option>';
-			}
+      // Handle submit button state
+      const form = document.getElementById('registrationForm');
+      const submitButton = document.getElementById('submitButton');
+      const buttonText = document.getElementById('buttonText');
+      const buttonSpinner = document.getElementById('buttonSpinner');
 
-			$('select[name=\'zone_id\']').html(html);
-    	},
-		error: function(xhr, ajaxOptions, thrownError) {
-			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-		}
-	});
-});
+      form.addEventListener('submit', function () {
+        submitButton.classList.add('btn-loading');
+        buttonText.classList.add('d-none');
+        buttonSpinner.classList.remove('d-none');
+        submitButton.disabled = true;
+      });
+    </script>
 
-$('select[name=\'country_id\']').trigger('change');
-//--></script>
-<script type="text/javascript"><!--
-$('input[name=\'payment\']').on('change', function() {
-	$('.payment').hide();
-
-	$('#payment-' + this.value).show();
-});
-
-$('input[name=\'payment\']:checked').trigger('change');
-//--></script>
-<?php echo $footer; ?>
+  </body>
+</html>

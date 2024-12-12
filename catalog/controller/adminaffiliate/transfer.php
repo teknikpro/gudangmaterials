@@ -116,6 +116,7 @@ class ControllerAdminAffiliateTransfer extends Controller {
 
         $data['afiliator'] = $affiliator;
         $data['data_pengeluaran'] = $data_pengeluaran;
+        $data['file_transfer'] = "https://gudangmaterials.id/catalog/uploads/transfers/" . $data_pengeluaran['bukti_transfer'];
         $data['action'] = $this->url->link('adminaffiliate/transfer', '', 'SSL');
 		$data['header'] = $this->load->controller('adminaffiliate/header', $data);
         $data['sidebar'] = $this->load->controller('adminaffiliate/sidebar', $data);

@@ -5,6 +5,14 @@
 <link href="<?= $template_assets; ?>vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 <div class="container-fluid">
+
+    <?php if($data_pengeluaran['bukti_transfer']) : ?>
+        <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Sudah Ditransfer</h4>
+        <p>komisi ini sudah di transfer pada <?= date('d F Y H:i:s', strtotime($data_pengeluaran['tanggal_pencairan'])); ?></p>
+    </div>
+    <?php endif; ?>
+
     <h1 class="h3 mb-2 text-gray-800 mb-3">Tujuan Transfer</h1>
     <form action="<?= $action; ?>" method="post" enctype="multipart/form-data" >
         <input type="hidden" name="id_affiliate_pengeluaran" value="<?= $data_pengeluaran['id_affiliate_pengeluaran']; ?>">
@@ -32,24 +40,30 @@
                 <input type="text" readonly class="form-control-plaintext" id="jumlah" value="<?= number_format($data_pengeluaran['jumlah'], 0,'.','.'); ?>">
             </div>
         </div>
-        <div class="input-group mb-3">
+        <?php if($data_pengeluaran['bukti_transfer']) : ?>
+                <img id="preview" src="<?= $file_transfer; ?>" alt="Preview Bukti Transfer" class="img-fluid mt-3" style="max-width: 100%;">
+        <?php endif; ?>
+        <?php if($data_pengeluaran['bukti_transfer'] == "") : ?>
+            <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroupFileAddon01">Bukti Transfer</span>
             </div>
+            
             <div class="custom-file">
                 <input type="file" class="custom-file-input" id="inputGroupFile01" name="transfer_image" aria-describedby="inputGroupFileAddon01" accept="image/*" required>
                 <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
             </div>
-        </div>
-        <!-- Preview Image -->
-        <div class="form-group">
-            <label for="preview">Preview Bukti Transfer:</label>
-            <img id="preview" src="" alt="Preview Bukti Transfer" class="img-fluid mt-3" style="max-width: 100%; display: none;">
-        </div>
-        
-        <button type="submit" class="btn btn-primary">
-            Kirim Bukti Transfer
-        </button>
+            </div>
+            <!-- Preview Image -->
+            <div class="form-group">
+                <label for="preview">Preview Bukti Transfer:</label>
+                <img id="preview" src="" alt="Preview Bukti Transfer" class="img-fluid mt-3" style="max-width: 100%; display: none;">
+            </div>
+            
+            <button type="submit" class="btn btn-primary">
+                Kirim Bukti Transfer
+            </button>
+        <?php endif; ?>
     </form>
 </div>
 
